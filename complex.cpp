@@ -54,7 +54,7 @@ complex::complex()
 
 double complex::norm()
 {
-	return sqrt(real*real + imag*imag);	
+	return sqrt(real*real + imag*imag);
 }
 
 complex operator+(const complex& w, const complex& z)
@@ -81,13 +81,19 @@ complex operator-(const complex& w, const complex& z)
 complex operator*(const complex& w, const complex& z)
 {
 	// TODO: write this function.
-	return complex();
+	complex r;
+	r.real = w.real * z.real + w.imag * z.imag;
+	r.imag = w.imag * z.real + w.real * z.imag;
+	return r;
 }
 
 complex operator/(complex& w, complex& z)
 {
 	// TODO: write this function.
-	return complex();
+	complex r;
+	r.real = ( (w.real * z.real) + (w.imag * -1 * z.imag) ) / ( (z.real * z.real) + (z.imag * -1 * z.imag) );
+	r.imag = ( (w.real * -1 * z.imag) + (w.imag * z.real) ) / ( (z.real * z.real) + (z.imag * -1 * z.imag) );
+	return r;
 }
 
 complex operator^(const complex& w, int a)
