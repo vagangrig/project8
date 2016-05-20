@@ -137,13 +137,26 @@ void mandelbrotArea::render()
 	unsigned long iwidth = image.width();
 	unsigned long iheight = image.height();
 	double unit = 1.0 / iwidth; // on a scale of 0-1, how wide is a pixel?
-	for (unsigned long i = 0; i < iwidth; i++) {
-		qc.setRgbF(i*unit,sqrt(i*unit),i*unit); // set the color we want to draw.
-		qpen.setColor(qc); // apply the color to the pen
-		qp.setPen(qpen);   // set the painter to use that pen
-		qp.drawLine(i,0,i,iheight); // draw a line of the specified color.
+	for(int x = 0; x < iwidth; x++)
+	{
+		for(int y = 0; y < iheight; y++)
+		{
+			complex* z = new complex();
+			complex* c = new complex(1.0 * x / iwidth * 3.0, 1.0 * y / iheight * 3.0);
+			int colorValue;
+			for(colorValue = 0; colorValue < 255; colorValue++)
+			{
+				*z = *z * *z + *c;
+				if(z->norm() > 2.0)
+					break;
+			}
+			qc.setRgb(colorValue, colorValue, colorValue);
+			qpen.setColor(qc);
+			qp.setPen(qpen);
+			qp.drawPoint(x,y);
+		}
 	}
-	update(); // repaint screen contents
+	update();
 	return;
 }
 
