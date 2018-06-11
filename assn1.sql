@@ -8,10 +8,40 @@
 
 -- 1.  What percent survived? (total)
 
+    SQL:
+    SELECT 
+      (SUM(CASE WHEN survived=1 THEN 1.0 ELSE 0.0 END)
+      /
+      CAST(COUNT(*) AS FLOAT))*100 AS percentage_survived
+    FROM passengers;
+    
+    RESULT:
+    34.2726580...%
+
 -- 2.  Percentage of females that survived?
 
+    SQL:
+    SELECT 
+      (SUM(CASE WHEN survived=1 AND sex='female' THEN 1.0 ELSE 0.0 END)
+      /
+      SUM(CASE WHEN sex='female' THEN 1.0 ELSE 0.0 END))*100 
+    AS females_percentage_survived
+    FROM passengers;  
+    
+    RESULT:
+    66.66666...%
 -- 3.  Percentage of males that survived?
 
+    SQL:
+    SELECT 
+      (SUM(CASE WHEN survived=1 AND sex='male' THEN 1.0 ELSE 0.0 END)
+      /
+      SUM(CASE WHEN sex='male' THEN 1.0 ELSE 0.0 END))*100 
+    AS males_percentage_survived
+    FROM passengers;
+    
+    RESULT:
+    16.68625146...%
 -- 4.  How many people total were in First class, Second class, Third, or unknown ?
 
 -- 5.  What is the total number of people in First and Second class ?
